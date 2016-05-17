@@ -1,0 +1,4 @@
+---
+sudo::sudoers_file: '/etc/sudoers'
+sudo::sudoers_tmp: '/etc/sudoers.tmp'
+sudo::package_name: 'sudo'

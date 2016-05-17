@@ -1,0 +1,5 @@
+---
+sudo::visudo_cmd: '/usr/local/sbin/visudo'
+sudo::sudoers_file: '/usr/local/etc/sudoers'
+sudo::sudoers_tmp: '/usr/local/etc/sudoers.tmp'
+sudo::package_name: 'security/sudo'

@@ -1,0 +1,3 @@
+---
+sudo::visudo_cmd: '/sbin/visudo'
+sudo::package_name: 'security/sudo'

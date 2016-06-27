@@ -3,6 +3,7 @@ describe 'sudo' do
 
   context 'with values for all required parameters' do
     let(:params) {{
+      :cmd => '/usr/local/bin/sudo',
       :package_name => 'security/sudo',
       :visudo_cmd => '/usr/local/sbin/visudo',
       :sudoers_file => '/usr/local/etc/sudoers',

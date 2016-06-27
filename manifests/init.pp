@@ -14,6 +14,7 @@
 #   include sudo
 #
 class sudo (
+  String $cmd,
   String $visudo_cmd,
   String $sudoers_file,
   String $sudoers_tmp,

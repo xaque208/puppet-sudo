@@ -1,0 +1,2 @@
+---
+sudo::visudo_cmd: '/usr/sbin/visudo'

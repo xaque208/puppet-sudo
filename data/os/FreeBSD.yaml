@@ -4,3 +4,4 @@ sudo::sudoers_file: '/usr/local/etc/sudoers'
 sudo::sudoers_tmp: '/usr/local/etc/sudoers.tmp'
 sudo::package_name: 'security/sudo'
 sudo::cmd: '/usr/local/bin/sudo'
+sudo::secure_path: ~

@@ -5,57 +5,58 @@ describe 'sudo' do
       let(:facts) { facts }
 
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_class("sudo") }
+      it { is_expected.to contain_class('sudo') }
 
       case facts[:osfamily]
       when 'Debian'
-        it { should contain_package('sudo') }
-        it { should contain_concat__fragment('sudoers-header').with_content(/^root\s+ALL=\(ALL\)\s+ALL$/) }
-        it { should contain_concat('/etc/sudoers.tmp').with_mode('0440') }
-        it { should contain_exec('check-sudoers').with_command('/usr/sbin/visudo -cf /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers') }
-        it { should contain_file('/etc/sudoers').with_mode('0440') }
-
+        it { is_expected.to contain_package('sudo') }
+        it { is_expected.to contain_concat__fragment('sudoers-header').with_content(%r{^root\s+ALL=\(ALL\)\s+ALL$}) }
+        it { is_expected.to contain_concat('/etc/sudoers.tmp').with_mode('0440') }
+        it { is_expected.to contain_exec('check-sudoers').with_command('/usr/sbin/visudo -cf /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers') }
+        it { is_expected.to contain_file('/etc/sudoers').with_mode('0440') }
       when 'CentOS'
-        it { should contain_package('sudo') }
-        it { should contain_concat__fragment('sudoers-header').with_content(/^root\s+ALL=\(ALL\)\s+ALL$/) }
-        it { should contain_concat('/etc/sudoers.tmp').with_mode('0440') }
-        it { should contain_concat('/etc/sudoers.tmp').with_content(/Defaults\ssecure_path\s=\s.*%/) }
-        it { should contain_exec('check-sudoers').with_command('/usr/sbin/visudo -cf /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers') }
-        it { should contain_file('/etc/sudoers').with_mode('0440') }
-
+        it { is_expected.to contain_package('sudo') }
+        it { is_expected.to contain_concat__fragment('sudoers-header').with_content(%r{^root\s+ALL=\(ALL\)\s+ALL$}) }
+        it do
+          is_expected.to contain_concat('/etc/sudoers.tmp').with(
+            mode: '0440',
+            content: %r{Defaults\ssecure_path\s=\s.*%}
+          )
+        end
+        it { is_expected.to contain_exec('check-sudoers').with_command('/usr/sbin/visudo -cf /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers') }
+        it { is_expected.to contain_file('/etc/sudoers').with_mode('0440') }
       when 'FreeBSD'
-        it { should contain_package('security/sudo') }
-        it { should contain_concat__fragment('sudoers-header').with_content(/^root\s+ALL=\(ALL\)\s+ALL$/) }
-        it { should contain_concat('/usr/local/etc/sudoers.tmp').with_mode('0440') }
-        it { should contain_exec('check-sudoers').with_command('/usr/local/sbin/visudo -cf /usr/local/etc/sudoers.tmp && cp /usr/local/etc/sudoers.tmp /usr/local/etc/sudoers') }
-        it { should contain_file('/usr/local/etc/sudoers').with_mode('0440') }
-        it { should_not contain_concat('/usr/local/etc/sudoers.tmp').with_content(/Defaults\ssecure_path\s=\s.*%/) }
-
+        it { is_expected.to contain_package('security/sudo') }
+        it { is_expected.to contain_concat__fragment('sudoers-header').with_content(%r{^root\s+ALL=\(ALL\)\s+ALL$}) }
+        it { is_expected.to contain_concat('/usr/local/etc/sudoers.tmp').with_mode('0440') }
+        it { is_expected.to contain_exec('check-sudoers').with_command('/usr/local/sbin/visudo -cf /usr/local/etc/sudoers.tmp && cp /usr/local/etc/sudoers.tmp /usr/local/etc/sudoers') }
+        it { is_expected.to contain_file('/usr/local/etc/sudoers').with_mode('0440') }
+        it { is_expected.not_to contain_concat('/usr/local/etc/sudoers.tmp').with_content(%r{Defaults\ssecure_path\s=\s.*%}) }
       when 'OpenBSD'
-        it { should contain_package('sudo') }
-        it { should contain_concat__fragment('sudoers-header').with_content(/^root\s+ALL=\(ALL\)\s+ALL$/) }
-        it { should contain_concat('/etc/sudoers.tmp').with_mode('0440') }
-        it { should contain_exec('check-sudoers').with_command('/usr/local/sbin/visudo -cf /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers') }
-        it { should contain_file('/etc/sudoers').with_mode('0440') }
-
+        it { is_expected.to contain_package('sudo') }
+        it { is_expected.to contain_concat__fragment('sudoers-header').with_content(%r{^root\s+ALL=\(ALL\)\s+ALL$}) }
+        it { is_expected.to contain_concat('/etc/sudoers.tmp').with_mode('0440') }
+        it { is_expected.to contain_exec('check-sudoers').with_command('/usr/local/sbin/visudo -cf /etc/sudoers.tmp && cp /etc/sudoers.tmp /etc/sudoers') }
+        it { is_expected.to contain_file('/etc/sudoers').with_mode('0440') }
       end
-
     end
   end
 
   context 'with values for all required parameters' do
-    let(:params) {{
-      :cmd => '/usr/local/bin/sudo',
-      :package_name => 'security/sudo',
-      :visudo_cmd => '/usr/local/sbin/visudo',
-      :sudoers_file => '/usr/local/etc/sudoers',
-      :sudoers_tmp => '/usr/local/etc/sudoers.tmp',
-    }}
-    it { should contain_class('sudo') }
-    it { should contain_package('security/sudo') }
-    it { should contain_concat__fragment('sudoers-header').with_content(/^root\s+ALL=\(ALL\)\s+ALL$/) }
-    it { should contain_concat('/usr/local/etc/sudoers.tmp').with_mode('0440') }
-    it { should contain_exec('check-sudoers').with_command('/usr/local/sbin/visudo -cf /usr/local/etc/sudoers.tmp && cp /usr/local/etc/sudoers.tmp /usr/local/etc/sudoers') }
-    it { should contain_file('/usr/local/etc/sudoers').with_mode('0440') }
+    let(:params) do
+      {
+        cmd: '/usr/local/bin/sudo',
+        package_name: 'security/sudo',
+        visudo_cmd: '/usr/local/sbin/visudo',
+        sudoers_file: '/usr/local/etc/sudoers',
+        sudoers_tmp: '/usr/local/etc/sudoers.tmp'
+      }
+    end
+    it { is_expected.to contain_class('sudo') }
+    it { is_expected.to contain_package('security/sudo') }
+    it { is_expected.to contain_concat__fragment('sudoers-header').with_content(%r{^root\s+ALL=\(ALL\)\s+ALL$}) }
+    it { is_expected.to contain_concat('/usr/local/etc/sudoers.tmp').with_mode('0440') }
+    it { is_expected.to contain_exec('check-sudoers').with_command('/usr/local/sbin/visudo -cf /usr/local/etc/sudoers.tmp && cp /usr/local/etc/sudoers.tmp /usr/local/etc/sudoers') }
+    it { is_expected.to contain_file('/usr/local/etc/sudoers').with_mode('0440') }
   end
 end

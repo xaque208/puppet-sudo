@@ -1,6 +1,6 @@
 {
   "name": "zleslie-sudo",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "author": "zleslie",
   "summary": "A simple module for managing sudo",
   "license": "Apache-2.0",
@@ -8,8 +8,14 @@
   "project_page": "https://github.com/xaque208/puppet-sudo",
   "issues_url": "https://github.com/xaque208/puppet-sudo/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
-    {"name": "puppetlabs/concat","version_requirement": ">= 1.1.0"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 1.1.0"
+    }
   ],
   "data_provider": "hiera",
   "operatingsystem_support": [
@@ -67,4 +73,3 @@
     }
   ]
 }
-

@@ -52,6 +52,7 @@ describe 'sudo' do
         sudoers_tmp: '/usr/local/etc/sudoers.tmp'
       }
     end
+
     it { is_expected.to contain_class('sudo') }
     it { is_expected.to contain_package('security/sudo') }
     it { is_expected.to contain_concat__fragment('sudoers-header').with_content(%r{^root\s+ALL=\(ALL\)\s+ALL$}) }

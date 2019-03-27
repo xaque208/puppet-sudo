@@ -1,5 +1,5 @@
 define sudo::entry ($entry) {
-  include ::sudo
+  include sudo
   $content = "# ${name}\n${entry}\n"
 
   concat::fragment { "sudoers-entry-${name}":

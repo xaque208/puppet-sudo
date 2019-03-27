@@ -1,5 +1,5 @@
 define sudo::allowgroup {
-  include ::sudo
+  include sudo
 
   concat::fragment { "sudoers-group-${name}":
     target  => $::sudo::sudoers_tmp,

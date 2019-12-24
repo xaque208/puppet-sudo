@@ -4,6 +4,9 @@ datadir: data
 hierarchy:
   - name: "osfamily"
     backend: yaml
+    path: "os/%{facts.osfamily}"
+  - name: "os.family"
+    backend: yaml
     path: "os/%{facts.os.family}"
   - name: "common"
     backend: yaml

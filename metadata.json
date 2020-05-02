@@ -1,6 +1,6 @@
 {
   "name": "zleslie-sudo",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "author": "zleslie",
   "summary": "A simple module for managing sudo",
   "license": "Apache-2.0",
@@ -70,6 +70,12 @@
         "6.0",
         "5.9"
       ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.0.0 < 8.0.0"
     }
   ]
 }

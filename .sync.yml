@@ -2,4 +2,4 @@
 .rubocop.yml:
   extra_configs:
     RSpec/RepeatedExample:
-      - Enabled: False
+      Enabled: False

@@ -23,8 +23,7 @@ class sudo (
   Boolean $visiblepw       = false,
   Boolean $always_set_home = true,
   String $template         = 'sudo/sudoers.erb',
-){
-
+) {
   package { $package_name:
     ensure => installed,
     before => Exec['check-sudoers'],
